@@ -192,6 +192,8 @@ async function initFundSelect() {
 
         // 通貨がUSDかつ為替ヘッジなしの場合は為替レートも自動取得
         if (fund.currency === 'USD' && !fund.hedged) {
+            // ETF価格取得後、為替レート取得前に遅延を入れる（レート制限を回避）
+            await new Promise(resolve => setTimeout(resolve, 500));
             try {
                 fetchFxBtn.disabled = true;
                 fetchFxBtn.textContent = '取得中...';
@@ -574,6 +576,9 @@ window.addEventListener('load', () => {
         } catch (e) {
             // エラーは無視
         }
+        
+        // ETF価格取得後、為替レート取得前に遅延を入れる（レート制限を回避）
+        await new Promise(resolve => setTimeout(resolve, 500));
         
         try {
             const rateData = await fetchExchangeRate(true);
