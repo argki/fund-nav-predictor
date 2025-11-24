@@ -1,7 +1,7 @@
 title: ファンド基準価額予想ツール
 description: 投資信託の基準価額を予想するWebアプリケーション
-baseurl: ""
-url: ""
+baseurl: "/fund-nav-predictor"
+url: "https://argki.github.io"
 
 # Jekyll設定
 theme: null  # カスタムレイアウトを使用するためnullに設定
