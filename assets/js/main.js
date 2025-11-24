@@ -12,6 +12,9 @@ const etfAutocomplete = document.getElementById('etf-autocomplete');
 const fundSelect = document.getElementById('fund-select');
 const fundYahooLinkContainer = document.getElementById('fund-yahoo-link-container');
 const fundYahooLink = document.getElementById('fund-yahoo-link');
+const etfError = document.getElementById('etf-error');
+const fxError = document.getElementById('fx-error');
+const inputError = document.getElementById('input-error');
 
 // 投資信託定義（外部JSONから読み込む）
 let fundDefinitions = [];
@@ -40,7 +43,6 @@ const etfSymbols = [
     { symbol: 'ITOT', name: 'iShares Core S&P Total U.S. Stock Market' },
     { symbol: 'IXUS', name: 'iShares Core MSCI Total International Stock' },
     { symbol: 'IUSB', name: 'iShares Core Total USD Bond Market' },
-    // Index symbols used for domestic equity funds
     { symbol: '^N225', name: 'Nikkei 225 Index' }
 ];
 
@@ -234,6 +236,19 @@ const fxImpact = document.getElementById('fx-impact');
 const fxCoefficient = document.getElementById('fx-coefficient');
 const etfCoefficient = document.getElementById('etf-coefficient');
 
+// エラーメッセージ制御用の関数
+function clearError(element) {
+    if (element) {
+        element.textContent = '';
+    }
+}
+
+function setError(element, message) {
+    if (element) {
+        element.textContent = message;
+    }
+}
+
 // 数値をフォーマットする関数
 function formatNumber(num, decimals = 2) {
     if (num === null || num === undefined || isNaN(num)) return '-';
@@ -346,8 +361,11 @@ async function fetchETFPrice(symbol, includePrevious = false) {
         throw new Error('価格データが見つかりませんでした');
     } catch (error) {
         console.error('ETF価格の取得に失敗しました:', error);
-        alert('ETF価格の自動取得に失敗しました。手動で入力してください。');
+        setError(etfError, 'ETF価格の自動取得に失敗しました。手動で入力してください。');
         return null;
+    } finally {
+        // 正常終了時・異常終了時いずれでも、呼び出し側で個別にメッセージを出しているケースもあるため
+        // ここでは特にボタン状態等は触らず、エラー表示のみを担当する
     }
 }
 
@@ -401,8 +419,10 @@ async function fetchExchangeRate(includePrevious = false) {
         throw new Error('為替レートが見つかりませんでした');
     } catch (error) {
         console.error('為替レートの取得に失敗しました:', error);
-        alert('為替レートの自動取得に失敗しました。手動で入力してください。');
+        setError(fxError, '為替レートの自動取得に失敗しました。手動で入力してください。');
         return null;
+    } finally {
+        // fetchボタンの活性/非活性は呼び出し元で制御する
     }
 }
 
@@ -410,10 +430,13 @@ async function fetchExchangeRate(includePrevious = false) {
 fetchEtfBtn.addEventListener('click', async () => {
     const symbol = etfSymbolInput.value.trim().toUpperCase();
     if (!symbol) {
-        alert('ETFシンボルを入力してください');
+        clearError(etfError);
+        setError(etfError, 'ETFシンボルを入力してください');
+        etfSymbolInput.focus();
         return;
     }
     
+    clearError(etfError);
     fetchEtfBtn.disabled = true;
     fetchEtfBtn.textContent = '取得中...';
     
@@ -438,6 +461,7 @@ fetchEtfBtn.addEventListener('click', async () => {
 
 // 為替レート取得ボタンのイベント
 fetchFxBtn.addEventListener('click', async () => {
+    clearError(fxError);
     fetchFxBtn.disabled = true;
     fetchFxBtn.textContent = '取得中...';
     
@@ -462,6 +486,7 @@ fetchFxBtn.addEventListener('click', async () => {
 
 // 基準価額を計算する関数
 function calculateNAV() {
+    clearError(inputError);
     // 入力値を取得
     const etfPrice = parseInputNumber(etfPriceInput.value);
     const exchangeRate = parseInputNumber(exchangeRateInput.value);
@@ -471,7 +496,7 @@ function calculateNAV() {
     
     // 入力値の検証
     if (isNaN(etfPrice) || isNaN(exchangeRate)) {
-        alert('ETF価格と為替レートは必須です');
+        setError(inputError, 'ETF価格と為替レートは必須です');
         return;
     }
     
