@@ -1,0 +1,103 @@
+[
+  {
+    "id": "emaxis-slim-allcountry",
+    "name": "eMAXIS Slim全世界株式(オール･カントリー)",
+    "category": "全世界株式（含む日本）",
+    "underlyingTicker": "VT",
+    "currency": "USD",
+    "hedged": false,
+    "yahooUrl": "https://finance.yahoo.co.jp/quote/0331418A"
+  },
+  {
+    "id": "emaxis-slim-us-sp500",
+    "name": "eMAXIS Slim米国株式(S&P500)",
+    "category": "米国株式（S&P500）",
+    "underlyingTicker": "VOO",
+    "currency": "USD",
+    "hedged": false,
+    "yahooUrl": "https://finance.yahoo.co.jp/quote/03311187"
+  },
+  {
+    "id": "emaxis-slim-jp-topix",
+    "name": "eMAXIS Slim国内株式(TOPIX)",
+    "category": "国内株式（TOPIX）",
+    "underlyingTicker": "^TOPX",
+    "currency": "JPY",
+    "hedged": true,
+    "yahooUrl": "https://finance.yahoo.co.jp/quote/03317172"
+  },
+  {
+    "id": "tawara-advanced",
+    "name": "たわらノーロード先進国株式",
+    "category": "先進国株式（除く日本）",
+    "underlyingTicker": "VEA",
+    "currency": "USD",
+    "hedged": false,
+    "yahooUrl": "https://finance.yahoo.co.jp/quote/4731B15C"
+  },
+  {
+    "id": "ifree-sp500",
+    "name": "iFree S&P500インデックス",
+    "category": "米国株式（S&P500）",
+    "underlyingTicker": "SPY",
+    "currency": "USD",
+    "hedged": false,
+    "yahooUrl": "https://finance.yahoo.co.jp/quote/04318178"
+  },
+  {
+    "id": "emaxis-slim-allworld-exjp",
+    "name": "eMAXIS Slim全世界株式(除く日本)",
+    "category": "全世界株式（除く日本）",
+    "underlyingTicker": "VXUS",
+    "currency": "USD",
+    "hedged": false,
+    "yahooUrl": "https://finance.yahoo.co.jp/quote/03316183"
+  },
+  {
+    "id": "sbi-v-sp500",
+    "name": "SBI・V・S&P500インデックス・ファンド",
+    "category": "米国株式（S&P500）",
+    "underlyingTicker": "VOO",
+    "currency": "USD",
+    "hedged": false,
+    "yahooUrl": "https://finance.yahoo.co.jp/quote/89311199"
+  },
+  {
+    "id": "tawara-allworld",
+    "name": "たわらノーロード 全世界株式",
+    "category": "全世界株式（含む日本）",
+    "underlyingTicker": "VT",
+    "currency": "USD",
+    "hedged": false,
+    "yahooUrl": "https://finance.yahoo.co.jp/quote/47312197"
+  },
+  {
+    "id": "emaxis-slim-jp-nikkei",
+    "name": "eMAXIS Slim国内株式(日経平均)",
+    "category": "国内株式（日経平均）",
+    "underlyingTicker": "^N225",
+    "currency": "JPY",
+    "hedged": true,
+    "yahooUrl": "https://finance.yahoo.co.jp/quote/03311182"
+  },
+  {
+    "id": "tsumitate-us-sp500",
+    "name": "つみたて米国株式(S&P500)",
+    "category": "米国株式（S&P500）",
+    "underlyingTicker": "SPY",
+    "currency": "USD",
+    "hedged": false,
+    "yahooUrl": "https://finance.yahoo.co.jp/quote/03315203"
+  },
+  {
+    "id": "rakuten-vti",
+    "name": "楽天・全米株式インデックス･ファンド",
+    "category": "米国株式（全市場）",
+    "underlyingTicker": "VTI",
+    "currency": "USD",
+    "hedged": false,
+    "yahooUrl": "https://finance.yahoo.co.jp/quote/9I312179"
+  }
+]
+
+

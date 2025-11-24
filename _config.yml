@@ -1,0 +1,24 @@
+title: ファンド基準価額予想ツール
+description: 投資信託の基準価額を予想するWebアプリケーション
+baseurl: ""
+url: ""
+
+# Jekyll設定
+theme: null  # カスタムレイアウトを使用するためnullに設定
+plugins: []
+
+# 除外ファイル
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .git
+  - .github
+  - README.md
+
+# 含めるファイル
+include:
+  - _layouts
+  - assets
+

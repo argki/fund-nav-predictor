@@ -1,0 +1,140 @@
+---
+layout: default
+title: ファンド基準価額予想ツール
+header_title: ファンド基準価額予想ツール
+---
+
+<div class="row g-4">
+    <div class="col-lg-5">
+        <section class="card shadow-sm h-100">
+            <div class="card-body">
+                <h2 class="h4 mb-3">入力データ</h2>
+
+                <div class="mb-3">
+                    <label for="fund-select" class="form-label">投資信託（任意）</label>
+                    <select id="fund-select" class="form-select">
+                        <option value="">-- ファンドを選択（任意） --</option>
+                    </select>
+                    <div class="form-text">
+                        ファンドを選択すると、対応するETFシンボルと為替レートが自動入力されます。
+                    </div>
+                </div>
+
+                <div class="mb-3 position-relative">
+                    <label for="etf-symbol" class="form-label">ETFシンボル</label>
+                    <div class="input-group">
+                        <input type="text" id="etf-symbol" value="VTI" placeholder="例: VTI" class="form-control" autocomplete="off">
+                        <button id="fetch-etf-btn" class="btn btn-outline-primary">価格を取得</button>
+                    </div>
+                    <div id="etf-autocomplete" class="list-group position-absolute w-100" style="display: none; z-index: 1000; max-height: 200px; overflow-y: auto; margin-top: 2px;"></div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="etf-price" class="form-label">ETF価格（ドル）</label>
+                    <input type="number" id="etf-price" step="0.01" placeholder="例: 323.80" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label for="exchange-rate" class="form-label">為替レート（円/ドル）</label>
+                    <div class="input-group">
+                        <input type="number" id="exchange-rate" step="0.01" placeholder="例: 156.44" class="form-control">
+                        <button id="fetch-fx-btn" class="btn btn-outline-secondary">為替を取得</button>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="prev-nav-actual" class="form-label">前営業日の基準価額（実績・円）</label>
+                    <input type="text" id="prev-nav-actual" placeholder="例: 31,816" class="form-control">
+                    <div class="form-text">
+                        Yahoo!ファイナンスなどで確認した前営業日の実際の基準価額を入力してください。
+                    </div>
+                    <div id="fund-yahoo-link-container" class="mt-1" style="display: none;">
+                        <a id="fund-yahoo-link" href="#" target="_blank" rel="noopener noreferrer" class="small">
+                            Yahoo!ファイナンスで選択中の投資信託ページを開く
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="prev-etf-price" class="form-label">前営業日ETF価格（ドル）</label>
+                    <input type="number" id="prev-etf-price" step="0.01" placeholder="例: 320.10" class="form-control">
+                </div>
+
+                <div class="mb-4">
+                    <label for="prev-exchange-rate" class="form-label">前営業日為替レート（円/ドル）</label>
+                    <input type="number" id="prev-exchange-rate" step="0.01" placeholder="例: 157.49" class="form-control">
+                </div>
+
+                <button id="calculate-btn" class="btn btn-primary w-100">
+                    基準価額を計算
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <div class="col-lg-7">
+        <section class="mb-4">
+            <h2 class="h4 mb-3">予想結果</h2>
+
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fw-semibold">予想基準価額</span>
+                        <span class="value fs-3 fw-bold" id="nav-value">-</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fw-semibold">前営業日比</span>
+                        <span class="value" id="nav-change">-</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="fw-semibold">前営業日比（%）</span>
+                        <span class="value" id="nav-change-percent">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h3 class="h6 mb-3">内訳</h3>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">ETF変動分</span>
+                                <span class="value" id="etf-impact">-</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-muted">為替変動分</span>
+                                <span class="value" id="fx-impact">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h3 class="h6 mb-3">影響係数</h3>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">為替10銭変動 → 基準価額変動</span>
+                                <span class="value" id="fx-coefficient">-</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-muted">ETF 0.1ドル変動 → 基準価額変動</span>
+                                <span class="value" id="etf-coefficient">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="alert alert-warning mb-3" role="alert">
+            <h2 class="h5 mb-2">計算式について</h2>
+            <p class="mb-1"><strong>基準価額 = ETF価格（ドル）× 為替レート（円/ドル）</strong></p>
+            <p class="mb-2">前営業日比 = ETF変動分 + 為替変動分</p>
+            <ul class="mb-0">
+                <li>ETF変動分 = (現在のETF価格 - 前営業日ETF価格) × 為替レート</li>
+                <li>為替変動分 = ETF価格 × (現在の為替レート - 前営業日為替レート)</li>
+            </ul>
+        </section>
+    </div>
+</div>
