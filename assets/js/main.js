@@ -105,7 +105,10 @@ async function initFundSelect() {
     if (!fundSelect) return;
 
     try {
-        const response = await fetch('/assets/data/funds.json');
+        // baseurlを考慮したパスを構築
+        const baseUrl = window.BASE_URL || '';
+        const fundsJsonPath = `${baseUrl}/assets/data/funds.json`;
+        const response = await fetch(fundsJsonPath);
         if (!response.ok) {
             console.error('funds.json の読み込みに失敗しました:', response.status, response.statusText);
             return;

@@ -43,6 +43,8 @@
         if (window.mermaid) {
             mermaid.initialize({ startOnLoad: true });
         }
+        // JekyllのbaseurlをJavaScriptで使用できるようにする
+        window.BASE_URL = '{{ site.baseurl }}';
     </script>
     <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
     {% if page.custom_js %}
