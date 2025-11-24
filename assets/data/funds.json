@@ -18,15 +18,6 @@
     "yahooUrl": "https://finance.yahoo.co.jp/quote/03311187"
   },
   {
-    "id": "emaxis-slim-jp-topix",
-    "name": "eMAXIS Slim国内株式(TOPIX)",
-    "category": "国内株式（TOPIX）",
-    "underlyingTicker": "^TOPX",
-    "currency": "JPY",
-    "hedged": true,
-    "yahooUrl": "https://finance.yahoo.co.jp/quote/03317172"
-  },
-  {
     "id": "tawara-advanced",
     "name": "たわらノーロード先進国株式",
     "category": "先進国株式（除く日本）",

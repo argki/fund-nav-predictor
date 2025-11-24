@@ -41,7 +41,6 @@ const etfSymbols = [
     { symbol: 'IXUS', name: 'iShares Core MSCI Total International Stock' },
     { symbol: 'IUSB', name: 'iShares Core Total USD Bond Market' },
     // Index symbols used for domestic equity funds
-    { symbol: '^TOPX', name: 'TOPIX Index' },
     { symbol: '^N225', name: 'Nikkei 225 Index' }
 ];
 
